@@ -5,6 +5,8 @@ import { engine } from "express-handlebars";
 import { __dirname } from "./path.js";
 import path from "path";
 import cookieParser from "cookie-parser";
+import { initilizeSocketGame } from './controllers/socket.controllers.js';
+// import socketMiddleware from "./utils/sockets.midelware.js"
 import session from "express-session"
 import router from "./routes/app.routes.js"
 import mongoData from "./db/index.js";
@@ -31,10 +33,12 @@ const server = app.listen(port, () => {
 
 
 const io = new Server(server)
+initilizeSocketGame(io)
+// socketMiddleware(io)
+// io.on("connection", (socket) => {
+//   console.log("Connected to io server");
+//   socket.on("disconnect", () => {
 
-io.on("connection", (socket) => {
-  console.log("Connected to io server");
-  socket.on("disconnect", () => {
-    console.log("Disconnected from io server");
-  });
-});
+//     console.log("Disconnected from io server");
+//   });
+// });
